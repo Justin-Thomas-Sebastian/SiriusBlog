@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Roll Dice</title>
+</head>
+<body>
+    <h1>Dice Game</h1>
+    <h3>Make Selection: </h3>
+    <ul>
+        <li><a href="/roll-dice/1">1</a></li>
+        <li><a href="/roll-dice/2">2</a></li>
+        <li><a href="/roll-dice/3">3</a></li>
+        <li><a href="/roll-dice/4">4</a></li>
+        <li><a href="/roll-dice/5">5</a></li>
+        <li><a href="/roll-dice/6">6</a></li>
+    </ul>
+
+    <h3>User Guess: <span th:text="${userChoice}">No Selection.</span></h3>
+    <h3>Random Number: <span th:text="${randomNum}">No random number generated yet.</span></h3>
+    <h3>Result: <span th:text="${result}">No results yet.</span></h3>
+</body>
+</html>
