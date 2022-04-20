@@ -34,3 +34,7 @@ build/
 
 # Hide env variables
 src/main/resources/application.properties
+
+*.iml
+target/
+.idea/
