@@ -1,36 +1,40 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.repositories.Post;
+import com.codeup.springblog.repositories.PostRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PostController {
+
+    private final PostRepository postDao;
+
+    public PostController(PostRepository postDao){
+        this.postDao = postDao;
+    }
+
     @GetMapping("/posts")
-    @ResponseBody
-    public String getPosts(){
-        return "posts index page";
+    public String index(Model model){
+        model.addAttribute("posts", postDao.findAll());
+        return "index";
     }
 
     @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String getPostById(@PathVariable String id){
-        return "View post id: " + id;
+    public String getPostById(@PathVariable String id, Model model){
+        model.addAttribute("postId", postDao.findById(Long.valueOf(id)));
+        return "index";
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
     public String getCreateForm(){
-        return "view the form for creating a post " +
-                "<form action='/posts/create' method='post'>" +
-                "<input type=text name='content' id='content'>" +
-                "<input type=submit value='postTest'>" +
-                "</form>";
+        return "create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String createNewPost(@RequestParam(name = "content") String contentValue){
-        System.out.println("contentValue = " + contentValue);
-        return "create a new post: " + contentValue;
+    public String createNewPost(Post post){
+        //set inputted post from into db
+        return "redirect:/posts";
     }
 }
