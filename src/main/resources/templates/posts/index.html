@@ -9,7 +9,7 @@
 <header th:replace="partials/partials.html :: header"></header>
 <nav th:replace="partials/partials.html :: navbar"></nav>
 
-<div th:each="post : ${indexPosts}">
+<div th:each="post : ${posts}">
     <h3 th:text="${post.title}"></h3>
     <p th:text="${post.body}" />
 </div>
