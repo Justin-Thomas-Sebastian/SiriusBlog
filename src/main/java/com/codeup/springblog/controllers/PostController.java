@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 public class PostController {
@@ -31,15 +32,28 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String getCreateForm(){
+    public String getCreateForm(Model model){
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String createNewPost(@RequestParam(name="title") String title, @RequestParam(name="body") String body, Model model){
+    public String createNewPost(@ModelAttribute Post post){
         User testUser = userDao.getById(1L);
-        Post newPost = new Post(title, body, testUser);
-        postDao.save(newPost);
+        post.setUser(testUser);
+        postDao.save(post);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String getEditForm(@PathVariable long id, Model model){
+        model.addAttribute("post", postDao.getById(id));
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String postEditForm(@ModelAttribute Post post){
+        postDao.save(post);
         return "redirect:/posts";
     }
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Form</title>
+</head>
+<body>
+<form th:action="@{/posts/{id}/edit(id=*{id})}" th:method="post" th:object="${post}">
+    <span>Posted By:</span>
+    <p th:text="*{getUser().getUsername()}"></p>
+    <span>Title:</span>
+    <input th:field="*{title}"><br>
+    <span>Body:</span>
+    <input th:field="*{body}"><br>
+    <input th:field="*{user}" style="visibility: hidden" readonly><br>
+    <input type=submit />
+</form>
+</body>
+</html>
